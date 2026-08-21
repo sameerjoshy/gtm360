@@ -1,6 +1,6 @@
 from typing import Any
 
-from langgraph.graph import END, StateGraph
+from langgraph.graph import END, START, StateGraph
 from typing_extensions import TypedDict
 
 
@@ -10,6 +10,13 @@ class AgentState(TypedDict, total=False):
     status: str
     error: str | None
     result: dict
+    domain: str
+    record_id: str | None
+    limit: int
+    company_limit: int
+    deal_id: str
+    observation: str
+    format: str
 
 
 class BaseAgent:
@@ -26,6 +33,7 @@ class BaseAgent:
     def build(self) -> StateGraph:
         graph = StateGraph(AgentState)
         graph.add_node("run", self.run)
+        graph.add_edge(START, "run")
         graph.add_edge("run", END)
         return graph.compile()
 

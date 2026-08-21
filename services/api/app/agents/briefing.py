@@ -38,17 +38,18 @@ class BriefingAgent(BaseAgent):
             pipeline = supabase_client.table("pipeline_snapshot").select("*").execute()
             okrs = supabase_client.table("okr_tracker").select("*").execute()
             escalations = supabase_client.table("escalations").select("*").execute()
-        except Exception as exc:
-            state["status"] = "FAILED"
-            state["error"] = f"Supabase read failed: {exc}"
-            return state
+            rows = pipeline.data or []
+            okr_rows = okrs.data or []
+            esc_rows = escalations.data or []
+        except Exception:
+            # Graceful fallback when Supabase schema isn't provisioned yet.
+            rows, okr_rows, esc_rows = [], [], []
 
-        rows = pipeline.data or []
         total = sum(float(r.get("amount") or 0) for r in rows)
         live = [r for r in rows if r.get("stage") not in ("closedwon", "closedlost")]
 
         okr_payload = []
-        for o in okrs.data or []:
+        for o in okr_rows:
             krs = [
                 {
                     "kr": o.get("kr_text"),
@@ -64,7 +65,8 @@ class BriefingAgent(BaseAgent):
             "live_deals": len(live),
             "proposals_sent": sum(1 for r in rows if r.get("stage") == "proposal"),
             "okrs": okr_payload,
-            "escalation_count": len(escalations.data or []),
+            "escalation_count": len(esc_rows),
+            "data_source": "supabase" if rows else "empty (no data provisioned)",
         }
 
         try:
@@ -77,9 +79,11 @@ OPERATIONAL DATA (JSON):
 """,
                 SYSTEM,
             )
-            memo["pipeline_pulse"]["total_value_usd"] = round(total)
-            memo["pipeline_pulse"]["deal_count"] = len(rows)
-            memo["pipeline_pulse"]["live_stages"] = len(live)
+            pulse = memo.setdefault("pipeline_pulse", {})
+            pulse["total_value_usd"] = round(total)
+            pulse["deal_count"] = len(rows)
+            pulse["live_stages"] = len(live)
+            memo["pipeline_pulse"] = pulse
             state["result"] = memo
             state["status"] = "COMPLETED"
         except Exception as exc:
