@@ -1,0 +1,10 @@
+name = "gtm360-llm-proxy"
+main = "src/index.js"
+compatibility_date = "2025-01-01"
+workers_dev = true
+
+[vars]
+ENVIRONMENT = "production"
+
+[[ai]]
+binding = "AI"

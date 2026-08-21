@@ -1,0 +1,10 @@
+name = "gtm360-keepalive"
+main = "src/index.js"
+compatibility_date = "2025-01-01"
+workers_dev = true
+
+[vars]
+RENDER_API_URL = "https://gtm360-api.onrender.com"
+
+[triggers]
+crons = ["0 */2 * * *"]
