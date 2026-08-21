@@ -1,5 +1,3 @@
-import { Ai } from "@cloudflare/workers-types";
-
 export default {
   async fetch(request, env) {
     if (request.method === "OPTIONS") {
@@ -35,7 +33,7 @@ export default {
         const { system, prompt } = await request.json();
         if (!prompt) return json({ error: "prompt required" }, 400);
 
-        const out = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
+        const out = await env.AI.run("@cf/meta/llama-3.3-70b-instruct-fp8-fast", {
           messages: [
             { role: "system", content: system || "You are a helpful assistant." },
             { role: "user", content: prompt },
