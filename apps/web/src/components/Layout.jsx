@@ -50,6 +50,14 @@ export function Layout() {
         <div className="mt-10 border-t border-white/10 pt-4 text-xs text-slate-400">
           <p>Revenue advisory, not AI theater.</p>
           <p className="mt-1">Every signal. Every judgment. Operator-grade.</p>
+          <a
+            href="https://gtm-360.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-3 inline-block text-accent-400 hover:text-accent-300"
+          >
+            gtm-360.com →
+          </a>
         </div>
       </aside>
       <main className="flex-1 p-8">
