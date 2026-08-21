@@ -28,6 +28,7 @@ jobs:
           npm run build
         env:
           VITE_API_URL: ${{ secrets.VITE_API_URL }}
+          VITE_WORKSPACE_ID: ${{ secrets.VITE_WORKSPACE_ID }}
       - uses: cloudflare/pages-action@v1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}

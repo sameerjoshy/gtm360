@@ -60,7 +60,12 @@ async def main():
     await test("content", {"observation": "We lost a deal because the buyer ghosted after legal."})
     await test("briefing", {"workspace_id": "test"})
     await test("outbound", {"domain": "aligned.com"})
-    print("ALL AGENTS PASS")
+
+    # Demo workspace — must run without any external integrations.
+    await test("hygiene", {"workspace_id": "demo", "limit": 3})
+    await test("sales", {"workspace_id": "demo", "deal_id": "demo-1001"})
+    await test("briefing", {"workspace_id": "demo"})
+    print("ALL AGENTS PASS (incl. demo workspace)")
 
 
 if __name__ == "__main__":

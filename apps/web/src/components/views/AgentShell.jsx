@@ -2,8 +2,8 @@ import { useState } from "react";
 
 import { runAgent } from "../../lib/api";
 
-export function AgentShell({ title, subtitle, agent, fields, buildBody }) {
-  const [inputs, setInputs] = useState({});
+export function AgentShell({ title, subtitle, agent, fields, buildBody, defaultInputs = {}, hint }) {
+  const [inputs, setInputs] = useState(defaultInputs);
   const [status, setStatus] = useState("idle");
   const [output, setOutput] = useState(null);
 
@@ -59,6 +59,8 @@ export function AgentShell({ title, subtitle, agent, fields, buildBody }) {
         >
           {status === "running" ? "Running…" : "Run"}
         </button>
+
+        {hint && <p className="mt-3 text-xs text-slate-400">{hint}</p>}
 
         {status === "error" && (
           <div className="mt-4 rounded border border-red-200 bg-red-50 p-4 text-sm text-red-700">

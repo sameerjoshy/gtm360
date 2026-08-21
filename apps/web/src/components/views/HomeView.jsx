@@ -72,7 +72,8 @@ export function HomeView() {
       <div className="mb-6 flex items-center gap-2 rounded bg-accent-500/10 border border-accent-500/30 px-4 py-3 text-sm text-accent-600">
         <Sparkles className="h-4 w-4" />
         <span>
-          These agents are free to try on your own data. Part of the{" "}
+          You're in the sample workspace — anonymised data so you can see the method before you
+          talk to anyone. Part of the{" "}
           <a href="https://gtm-360.com" className="font-semibold underline hover:text-accent-700">
             GTM-360 advisory
           </a>{" "}

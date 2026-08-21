@@ -32,32 +32,46 @@ class BriefingAgent(BaseAgent):
 
     async def run(self, state):
         workspace = state.get("workspace_id", "default")
-        try:
-            from app.core.supabase import supabase_client
 
-            pipeline = supabase_client.table("pipeline_snapshot").select("*").execute()
-            okrs = supabase_client.table("okr_tracker").select("*").execute()
-            escalations = supabase_client.table("escalations").select("*").execute()
-            rows = pipeline.data or []
-            okr_rows = okrs.data or []
-            esc_rows = escalations.data or []
-        except Exception:
-            # Graceful fallback when Supabase schema isn't provisioned yet.
-            rows, okr_rows, esc_rows = [], [], []
+        from app.core import demo
+
+        if demo.is_demo(state):
+            rows = demo.DEMO_PIPELINE
+            esc_rows = demo.DEMO_ESCALATIONS
+            okr_payload = []
+            for o in demo.DEMO_OKRS:
+                krs = [
+                    {"kr": kr["kr_text"], "current": kr["current"], "target": kr["target"]}
+                    for kr in o["krs"]
+                ]
+                okr_payload.append({"objective": o["objective_text"], "krs": krs})
+        else:
+            try:
+                from app.core.supabase import supabase_client
+
+                pipeline = supabase_client.table("pipeline_snapshot").select("*").execute()
+                okrs = supabase_client.table("okr_tracker").select("*").execute()
+                escalations = supabase_client.table("escalations").select("*").execute()
+                rows = pipeline.data or []
+                okr_rows = okrs.data or []
+                esc_rows = escalations.data or []
+                okr_payload = []
+                for o in okr_rows:
+                    krs = [
+                        {
+                            "kr": o.get("kr_text"),
+                            "current": o.get("kr_current"),
+                            "target": o.get("kr_target"),
+                        }
+                    ]
+                    okr_payload.append({"objective": o.get("objective_text"), "krs": krs})
+            except Exception:
+                # Graceful fallback when Supabase schema isn't provisioned yet.
+                rows, okr_rows, esc_rows = [], [], []
+                okr_payload = []
 
         total = sum(float(r.get("amount") or 0) for r in rows)
         live = [r for r in rows if r.get("stage") not in ("closedwon", "closedlost")]
-
-        okr_payload = []
-        for o in okr_rows:
-            krs = [
-                {
-                    "kr": o.get("kr_text"),
-                    "current": o.get("kr_current"),
-                    "target": o.get("kr_target"),
-                }
-            ]
-            okr_payload.append({"objective": o.get("objective_text"), "krs": krs})
 
         raw = {
             "week_ending": datetime.now(timezone.utc).date().isoformat(),
@@ -66,7 +80,7 @@ class BriefingAgent(BaseAgent):
             "proposals_sent": sum(1 for r in rows if r.get("stage") == "proposal"),
             "okrs": okr_payload,
             "escalation_count": len(esc_rows),
-            "data_source": "supabase" if rows else "empty (no data provisioned)",
+            "data_source": "demo workspace" if demo.is_demo(state) else ("supabase" if rows else "empty (no data provisioned)"),
         }
 
         try:

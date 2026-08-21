@@ -33,8 +33,14 @@ class SalesAgent(BaseAgent):
             state["error"] = "deal_id required"
             return state
 
+        from app.core import demo
+
+        if demo.is_demo(state):
+            deals = demo.demo_deals()
+        else:
+            deals = await hubspot.search_deals(limit=200)
+
         deal = None
-        deals = await hubspot.search_deals(limit=200)
         for d in deals:
             if d.get("id") == deal_id:
                 deal = d

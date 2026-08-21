@@ -66,8 +66,9 @@ async def content_draft(req: ContentRequest):
 
 
 @router.post("/briefing/weekly", response_model=AgentRunResponse)
-async def weekly_briefing():
-    return await run_agent("briefing", {"workspace_id": "default"})
+async def weekly_briefing(req: dict | None = None):
+    body = req or {}
+    return await run_agent("briefing", {"workspace_id": body.get("workspace_id", "default")})
 
 
 @router.post("/outbound/campaign", response_model=AgentRunResponse)

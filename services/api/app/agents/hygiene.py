@@ -25,15 +25,25 @@ class HygieneAgent(BaseAgent):
     name = "hygiene"
 
     async def run(self, state):
-        deals = await hubspot.search_deals(limit=state.get("limit", 100))
-        companies = []
-        for deal in deals[: int(state.get("company_limit", 20))]:
-            try:
-                cid = deal["properties"].get("associatedcompanyid")
-                if cid:
-                    companies.append(await hubspot.read_company(cid))
-            except Exception:
-                continue
+        from app.core import demo
+
+        if demo.is_demo(state):
+            deals = demo.demo_deals()
+            companies = [
+                demo.demo_company(d["properties"].get("associatedcompanyid"))
+                for d in deals
+                if demo.demo_company(d["properties"].get("associatedcompanyid"))
+            ]
+        else:
+            deals = await hubspot.search_deals(limit=state.get("limit", 100))
+            companies = []
+            for deal in deals[: int(state.get("company_limit", 20))]:
+                try:
+                    cid = deal["properties"].get("associatedcompanyid")
+                    if cid:
+                        companies.append(await hubspot.read_company(cid))
+                except Exception:
+                    continue
 
         now = datetime.now(timezone.utc)
         issues = []
