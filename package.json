@@ -1,12 +1,9 @@
 {
   "name": "gtm360",
   "private": true,
-  "workspaces": [
-    "apps/*"
-  ],
   "scripts": {
-    "dev:web": "npm run dev --workspace=apps/web",
-    "build:web": "npm run build --workspace=apps/web",
+    "dev:web": "npm run dev --prefix apps/web",
+    "build:web": "npm run build --prefix apps/web",
     "dev:api": "cd services/api && uvicorn app.main:app --reload"
   }
 }
