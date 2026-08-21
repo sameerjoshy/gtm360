@@ -22,11 +22,11 @@ const nav = [
 
 export function Layout() {
   return (
-    <div className="flex min-h-screen">
-      <aside className="w-60 shrink-0 border-r border-ink-700 bg-ink-800 p-4">
+    <div className="flex min-h-screen bg-secondary">
+      <aside className="w-60 shrink-0 bg-primary text-white p-4">
         <div className="mb-6 flex items-center gap-2">
           <BriefcaseMedical className="h-6 w-6 text-accent-400" />
-          <span className="text-lg font-bold tracking-tight">GTM360</span>
+          <span className="text-lg font-bold tracking-tight">GTM-360</span>
         </div>
         <nav className="space-y-1">
           {nav.map(({ to, label, icon: Icon, end }) => (
@@ -35,10 +35,10 @@ export function Layout() {
               to={to}
               end={end}
               className={({ isActive }) =>
-                `flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition ${
+                `flex items-center gap-3 rounded px-3 py-2 text-sm font-medium transition ${
                   isActive
                     ? "bg-accent-500 text-white"
-                    : "text-slate-400 hover:bg-ink-700 hover:text-slate-100"
+                    : "text-slate-300 hover:bg-primary/40 hover:text-white"
                 }`
               }
             >
@@ -47,6 +47,10 @@ export function Layout() {
             </NavLink>
           ))}
         </nav>
+        <div className="mt-10 border-t border-white/10 pt-4 text-xs text-slate-400">
+          <p>Revenue advisory, not AI theater.</p>
+          <p className="mt-1">Every signal. Every judgment. Operator-grade.</p>
+        </div>
       </aside>
       <main className="flex-1 p-8">
         <Outlet />

@@ -24,28 +24,28 @@ export function AgentShell({ title, subtitle, agent, fields, buildBody }) {
 
   return (
     <div className="max-w-3xl">
-      <h1 className="text-2xl font-bold">{title}</h1>
-      <p className="mt-1 text-slate-400">{subtitle}</p>
+      <h1 className="text-3xl font-bold text-primary">{title}</h1>
+      <p className="mt-2 text-slate-600">{subtitle}</p>
 
-      <div className="mt-6 rounded-xl border border-ink-700 bg-ink-800 p-6">
-        <div className="space-y-3">
+      <div className="card mt-8 p-6">
+        <div className="space-y-4">
           {fields.map(({ key, label, placeholder, type = "text" }) => (
             <div key={key}>
-              <label className="mb-1 block text-sm font-medium text-slate-300">{label}</label>
+              <label className="mb-1 block text-sm font-medium text-slate-700">{label}</label>
               {type === "textarea" ? (
                 <textarea
                   value={inputs[key] || ""}
                   onChange={(e) => set(key, e.target.value)}
                   placeholder={placeholder}
                   rows={3}
-                  className="w-full rounded-lg border border-ink-700 bg-ink-900 px-3 py-2 text-sm focus:border-accent-500 focus:outline-none"
+                  className="w-full rounded border border-slate-300 bg-white px-3 py-2 text-sm focus:border-accent-500 focus:outline-none"
                 />
               ) : (
                 <input
                   value={inputs[key] || ""}
                   onChange={(e) => set(key, e.target.value)}
                   placeholder={placeholder}
-                  className="w-full rounded-lg border border-ink-700 bg-ink-900 px-3 py-2 text-sm focus:border-accent-500 focus:outline-none"
+                  className="w-full rounded border border-slate-300 bg-white px-3 py-2 text-sm focus:border-accent-500 focus:outline-none"
                 />
               )}
             </div>
@@ -55,19 +55,19 @@ export function AgentShell({ title, subtitle, agent, fields, buildBody }) {
         <button
           onClick={run}
           disabled={status === "running"}
-          className="mt-4 rounded-lg bg-accent-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-accent-400 disabled:opacity-50"
+          className="btn btn-accent mt-5 disabled:opacity-50"
         >
-          {status === "running" ? "Running…" : "Run agent"}
+          {status === "running" ? "Running…" : "Run"}
         </button>
 
         {status === "error" && (
-          <div className="mt-4 rounded-lg border border-red-700 bg-red-950/40 p-4 text-sm text-red-200">
-            {output?.error || "Agent failed"}
+          <div className="mt-4 rounded border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+            {output?.error || "The agent could not complete this run."}
           </div>
         )}
 
         {output?.result && (
-          <pre className="mt-4 max-h-96 overflow-auto rounded-lg bg-ink-900 p-4 text-xs text-slate-300">
+          <pre className="mt-5 max-h-96 overflow-auto rounded border border-slate-200 bg-slate-900 p-4 text-xs text-slate-200">
             {JSON.stringify(output.result, null, 2)}
           </pre>
         )}

@@ -4,7 +4,7 @@ export function BriefingView() {
   return (
     <AgentShell
       title="Weekly Exec Briefing"
-      subtitle="Chief of Staff memo from live Supabase data: pipeline pulse, OKRs, escalations, one thing."
+      subtitle="The Chief of Staff memo from live data: pipeline pulse, OKRs, escalations, flags, and the single most important thing."
       agent="briefing"
       fields={[]}
       buildBody={() => ({})}

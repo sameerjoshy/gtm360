@@ -4,7 +4,7 @@ export function HygieneView() {
   return (
     <AgentShell
       title="CRM Hygiene Watchdog"
-      subtitle="Scan HubSpot for stale deals, missing fields, and data debt. Get a health score and fix actions."
+      subtitle="Scan HubSpot for stale deals, missing fields, and data debt. You get a health score and concrete fix actions — not a lecture."
       agent="hygiene"
       fields={[]}
       buildBody={() => ({ limit: 100, company_limit: 20 })}

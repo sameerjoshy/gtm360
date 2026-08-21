@@ -1,11 +1,15 @@
-/** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,jsx}"],
   theme: {
     extend: {
       colors: {
-        ink: { 900: "#0b0f14", 800: "#11161d", 700: "#1a2129" },
-        accent: { 500: "#2563eb", 400: "#3b82f6" },
+        primary: "#0A192F", // Deep Navy
+        secondary: "#F1F5F9", // Slate 100
+        accent: { 500: "#4F46E5", 400: "#6366F1", 600: "#4338CA" }, // Indigo
+        muted: "#6B7280",
+      },
+      fontFamily: {
+        sans: ["Inter", "sans-serif"],
       },
     },
   },

@@ -4,7 +4,7 @@ export function ContentView() {
   return (
     <AgentShell
       title="Content Studio"
-      subtitle="Raw observation to a QC-scored, approval-gated post or email."
+      subtitle="A raw observation becomes a QC-scored draft in your voice. Nothing gets published without your approval."
       agent="content"
       fields={[
         { key: "observation", label: "Raw observation", type: "textarea", placeholder: "What did you actually see or learn this week?" },
