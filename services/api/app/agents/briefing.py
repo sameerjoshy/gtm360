@@ -20,7 +20,7 @@ SCHEMA = """Return JSON:
   "week": "...",
   "pipeline_pulse": {"total_value_usd": 0, "deal_count": 0, "live_stages": 0, "proposals_sent": 0},
   "okr_status": [{"objective": "...", "krs": [{"kr": "...", "current": 0, "target": 0}]}],
-  "plan_link": "okr.gtm-360.com",
+  "plan_link": "Compass (okr.gtm-360.com)",
   "escalations": [{"summary": "..."}],
   "flags": [{"severity": "LOW|MEDIUM|HIGH", "flag": "..."}],
   "one_thing": "...",
@@ -94,8 +94,8 @@ OPERATIONAL DATA (JSON):
 """,
                 SYSTEM,
             )
-            # OKRs are planned in Plan (okr.gtm-360.com); this snapshot is read-only reference.
-            memo["plan_link"] = "okr.gtm-360.com"
+            # OKRs are planned in Compass (okr.gtm-360.com); this snapshot is read-only reference.
+            memo["plan_link"] = "Compass (okr.gtm-360.com)"
             memo.setdefault("okr_status", okr_payload)
             pulse = memo.setdefault("pipeline_pulse", {})
             pulse["total_value_usd"] = round(total)

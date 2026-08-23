@@ -21,9 +21,9 @@ const nav = [
 ];
 
 const products = [
-  { key: "plan", name: "Plan", url: "https://okr.gtm-360.com" },
-  { key: "brain", name: "Brain", url: "https://brain.gtm-360.com" },
-  { key: "agents", name: "Agents", url: "https://agents.gtm-360.com" },
+  { key: "compass", name: "Compass", url: "https://okr.gtm-360.com" },
+  { key: "cockpit", name: "Cockpit", url: "https://brain.gtm-360.com" },
+  { key: "crew", name: "Crew", url: "https://agents.gtm-360.com" },
 ];
 
 export function Layout() {
@@ -33,13 +33,14 @@ export function Layout() {
         <div className="mb-4 flex items-center gap-2">
           <BriefcaseMedical className="h-6 w-6 text-accent-400" />
           <span className="text-lg font-bold tracking-tight">GTM-360</span>
+          <span className="text-xs font-semibold text-slate-300">/ Cockpit</span>
         </div>
 
         <div className="mb-5">
           <p className="mb-1.5 text-[11px] uppercase tracking-wider text-slate-400 font-semibold">GTM-360</p>
           <div className="flex gap-1 rounded bg-white/10 p-1">
             {products.map((p) => (
-              p.key === "brain" ? (
+              p.key === "cockpit" ? (
                 <span key={p.key} className="flex-1 text-center text-xs font-semibold py-1.5 rounded bg-white text-primary">
                   {p.name}
                 </span>
