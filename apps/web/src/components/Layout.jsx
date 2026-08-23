@@ -22,7 +22,7 @@ const nav = [
 
 const products = [
   { key: "plan", name: "Plan", url: "https://okr.gtm-360.com" },
-  { key: "brain", name: "Brain", url: "https://gtm-360.com" },
+  { key: "brain", name: "Brain", url: "https://brain.gtm-360.com" },
   { key: "agents", name: "Agents", url: "https://agents.gtm-360.com" },
 ];
 
