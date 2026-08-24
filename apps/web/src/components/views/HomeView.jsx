@@ -75,14 +75,14 @@ export function HomeView() {
           You're in the sample workspace — anonymised data so you can see the method before you
           talk to anyone. Part of the{" "}
           <a href="https://gtm-360.com" className="font-semibold underline hover:text-accent-700">
-            GTM-360 advisory
+            GTM-360
           </a>{" "}
-          service.
+          operating system.
         </span>
       </div>
 
       <p className="text-xs font-bold text-accent-500 uppercase tracking-widest mb-3">
-        GTM-360 Advisory
+        GTM-360 / Cockpit
       </p>
       <h1 className="text-4xl font-bold text-primary leading-tight">
         Growth has slowed.
@@ -90,7 +90,7 @@ export function HomeView() {
         You're not sure why.
       </h1>
       <p className="mt-4 text-lg text-slate-500 max-w-2xl font-light leading-relaxed">
-        This is the operator's desk. Six agents work the revenue system the way a senior operator
+        This is the Cockpit. Six specialists work the revenue system the way a senior operator
         would — they surface evidence, apply judgment, and wait for your call. No AI theater, no
         autonomous magic. Signals, evidence, decision support.
       </p>
